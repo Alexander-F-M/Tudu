@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         if (savedInstanceState==null) {
-            getSupportFragmentManager().beginTransaction().add(R.id.mainactivity_content, new FrontpageFragment()).commit();
+            getSupportFragmentManager().beginTransaction().add(R.id.mainactivity_content, new VPFragment()).commit();
         }
 
     }

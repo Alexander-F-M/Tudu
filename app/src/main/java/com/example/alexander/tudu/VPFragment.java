@@ -41,8 +41,6 @@ public class VPFragment extends Fragment {
     }
 
 
-
-
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
@@ -66,11 +64,11 @@ public class VPFragment extends Fragment {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "SECTION 1";
+                    return "Tudu";
                 case 1:
-                    return "SECTION 2";
+                    return "Kalender";
                 case 2:
-                    return "SECTION 3";
+                    return "Kontakter";
             }
             return null;
         }
