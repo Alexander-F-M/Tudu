@@ -11,16 +11,28 @@ import android.widget.TextView;
 /**
  * Created by Alexander on 22-03-2016.
  */
-public class ForsideFragment extends Fragment {
+public class FrontpageFragment extends Fragment implements View.OnClickListener {
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.mainactivity_content, container, false);
+        View root = inflater.inflate(R.layout.frontpage_frag, container, false);
         //TextView textView = (TextView) rootView.findViewById(R.id.section_label);
         //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-        return rootView;
 
+        root.findViewById(R.id.button).setOnClickListener(this);
+
+        return root;
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        getFragmentManager().beginTransaction()
+                .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+                .replace(R.id.mainactivity_content, new VPFragment())
+                .addToBackStack(null)
+                .commit();
     }
 }

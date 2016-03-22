@@ -37,7 +37,7 @@
         </FrameLayout>
 
         <!--
-        <include layout="@layout/mainactivity_content" />
+        <include layout="@layout/frontpage_frag" />
         -->
 
     </android.support.design.widget.CoordinatorLayout>
