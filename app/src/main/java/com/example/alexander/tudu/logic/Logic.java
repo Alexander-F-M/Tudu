@@ -6,19 +6,30 @@ package com.example.alexander.tudu.logic;
 public class Logic {
     public static Logic instance;
     private User[] users;
-
+    User teddy;
 
     public void TestData() {
 
         users = new User[]{new User("Teddy Bridgewater"), new User("Trae Waynes")};
 
-        User teddy = users[0];
+        teddy = users[0];
         teddy.lists = new Lists[] {new Lists("Dagens To-Do"), new Lists("Træning")};
 
         Lists dagensToDo = teddy.lists[0];
-        dagensToDo.tasks = new Task [] {
+        dagensToDo.tasks = new Task[] {
                 new Task("Ryd op"),
                 new Task("Gør rent")
         };
+
+        Lists træning = teddy.lists[1];
+        træning.tasks = new Task[] {
+                new Task("Biceps"),
+                new Task("Triceps")
+        };
+    }
+
+
+    public Lists[] getListsAsArray() {
+        return teddy.lists;
     }
 }

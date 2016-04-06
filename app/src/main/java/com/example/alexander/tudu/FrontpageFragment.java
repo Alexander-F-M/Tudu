@@ -13,6 +13,10 @@ import android.widget.TextView;
  */
 public class FrontpageFragment extends Fragment implements View.OnClickListener {
 
+    public FrontpageFragment(){
+
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -29,10 +33,15 @@ public class FrontpageFragment extends Fragment implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
+
+        getFragmentManager().popBackStack();
+
+        /*
         getFragmentManager().beginTransaction()
                 .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
                 .replace(R.id.mainactivity_content, new VPFragment())
                 .addToBackStack(null)
                 .commit();
+                */
     }
 }

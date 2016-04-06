@@ -10,7 +10,14 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.alexander.tudu.adapters.ListAdapter;
+import com.example.alexander.tudu.logic.Lists;
+import com.example.alexander.tudu.logic.Logic;
 
 /**
  * Created by Alexander on 22-03-2016.
@@ -51,7 +58,10 @@ public class VPFragment extends Fragment {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            switch (position) {
+                case 0: return ListFragment.newInstance(position);
+                default: return PlaceholderFragment.newInstance(position);
+            }
         }
 
         @Override
@@ -99,10 +109,61 @@ public class VPFragment extends Fragment {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.vp_frag, container, false);
+            View rootView = inflater.inflate(R.layout.vp_frag2, container, false);
             TextView textView = (TextView) rootView.findViewById(R.id.section_label);
             //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
             return rootView;
+        }
+    }
+
+    public static class ListFragment extends Fragment {
+
+        ListView lists;
+
+        public ListFragment() {
+        }
+
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            View root = inflater.inflate(R.layout.vp_frag, container, false);
+           // TextView textView = (TextView) root.findViewById(R.id.section_label);
+            //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+
+           lists = (ListView) root.findViewById(R.id.lists);
+
+            final Lists[] todoLists = Logic.instance.getListsAsArray();
+            final ListAdapter adapter = new ListAdapter(getActivity(), todoLists);
+
+            System.out.println(todoLists[1].getName());
+
+            lists.setAdapter(adapter);
+
+          /*  lists.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    String item = todoLists[position].getName();
+
+                    System.out.println(todoLists[1].getName());
+
+                    Toast.makeText(getActivity(), "hej", Toast.LENGTH_LONG).show();
+                }
+            });
+
+            */
+
+            System.out.println(todoLists[0].getName());
+
+            return root;
+        }
+
+        public static ListFragment newInstance(int sectionNumber) {
+
+            ListFragment fragment = new ListFragment();
+            Bundle args = new Bundle();
+            args.putInt("nr", sectionNumber);
+            fragment.setArguments(args);
+
+            return fragment;
         }
     }
 }
