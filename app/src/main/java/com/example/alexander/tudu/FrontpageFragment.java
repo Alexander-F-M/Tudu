@@ -6,12 +6,21 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import com.example.alexander.tudu.adapters.ListAdapter;
+import com.example.alexander.tudu.adapters.TaskAdapter;
+import com.example.alexander.tudu.logic.Lists;
+import com.example.alexander.tudu.logic.Task;
 
 /**
  * Created by Alexander on 22-03-2016.
  */
-public class FrontpageFragment extends Fragment implements View.OnClickListener {
+public class FrontpageFragment extends Fragment {
+
+    ListView tasks;
+    TextView listname;
 
     public FrontpageFragment(){
 
@@ -25,16 +34,25 @@ public class FrontpageFragment extends Fragment implements View.OnClickListener 
         //TextView textView = (TextView) rootView.findViewById(R.id.section_label);
         //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
 
-        root.findViewById(R.id.button).setOnClickListener(this);
+        tasks = (ListView) root.findViewById(R.id.tasks);
+        listname = (TextView) root.findViewById(R.id.list_task_title);
+
+        Bundle bundle = this.getArguments();
+        Lists list = (Lists) bundle.getParcelable("list");
+
+        final Task[] taskList = list.tasks;
+        final TaskAdapter adapter = new TaskAdapter(getActivity(), taskList);
+
+        tasks.setAdapter(adapter);
+
+        listname.setText(list.getName());
 
         return root;
 
     }
 
-    @Override
-    public void onClick(View v) {
 
-        getFragmentManager().popBackStack();
+            //popBackStack();
 
         /*
         getFragmentManager().beginTransaction()
@@ -43,5 +61,5 @@ public class FrontpageFragment extends Fragment implements View.OnClickListener 
                 .addToBackStack(null)
                 .commit();
                 */
-    }
+
 }

@@ -151,7 +151,6 @@ public class VPFragment extends Fragment {
 
             */
 
-            System.out.println(todoLists[0].getName());
 
             return root;
         }

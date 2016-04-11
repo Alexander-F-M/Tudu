@@ -18,8 +18,11 @@ public class Logic {
         Lists dagensToDo = teddy.lists[0];
         dagensToDo.tasks = new Task[] {
                 new Task("Ryd op"),
-                new Task("Gør rent")
+                new Task("Gør rent"),
+                new Task("Køb mælk")
         };
+
+        dagensToDo.tasks[0].setDone(true);
 
         Lists træning = teddy.lists[1];
         træning.tasks = new Task[] {
@@ -31,5 +34,10 @@ public class Logic {
 
     public Lists[] getListsAsArray() {
         return teddy.lists;
+    }
+
+    public Task[] getTasksAsArray() {
+        Lists[] list = getListsAsArray();
+        return list[0].tasks;
     }
 }

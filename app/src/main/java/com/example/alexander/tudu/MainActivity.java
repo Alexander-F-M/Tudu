@@ -103,7 +103,8 @@ public class MainActivity extends AppCompatActivity
 
     public void newFragment(Fragment fragment) {
         getSupportFragmentManager().beginTransaction()
-                .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+                .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left,
+                        R.anim.slide_in_left, R.anim.slide_out_right)
                 .replace(R.id.mainactivity_content, fragment)
                 .addToBackStack(null)
                 .commit();

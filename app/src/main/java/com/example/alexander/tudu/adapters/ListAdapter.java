@@ -1,5 +1,6 @@
 package com.example.alexander.tudu.adapters;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.util.Log;
@@ -63,6 +64,9 @@ public class ListAdapter extends BaseAdapter{
                 {
                     Fragment newFragment = new FrontpageFragment();
                    if (newFragment != null) {
+                       Bundle bundle = new Bundle();
+                       bundle.putParcelable("list", todoLists[position]);
+                       newFragment.setArguments(bundle);
                        switchFragment(newFragment);
                    }
 
