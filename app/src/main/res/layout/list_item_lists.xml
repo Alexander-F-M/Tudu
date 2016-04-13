@@ -3,21 +3,21 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:weightSum="5">
 
     <ImageButton
-        android:layout_width="match_parent"
+        android:layout_width="0px"
         android:layout_height="match_parent"
         android:id="@+id/list_setting"
         android:src="@drawable/ic_menu_manage"
         android:background="@color/white"
-        android:layout_weight="4"/>
+        android:layout_weight="1"/>
 
         <TableLayout
-            android:layout_width="match_parent"
+            android:layout_width="0px"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="4"
             android:layout_marginLeft="16dp"
             >
 
