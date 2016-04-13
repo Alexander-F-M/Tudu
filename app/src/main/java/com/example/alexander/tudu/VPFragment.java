@@ -19,6 +19,8 @@ import com.example.alexander.tudu.adapters.ListAdapter;
 import com.example.alexander.tudu.logic.Lists;
 import com.example.alexander.tudu.logic.Logic;
 
+import java.util.ArrayList;
+
 /**
  * Created by Alexander on 22-03-2016.
  */
@@ -131,10 +133,10 @@ public class VPFragment extends Fragment {
 
            lists = (ListView) root.findViewById(R.id.lists);
 
-            final Lists[] todoLists = Logic.instance.getListsAsArray();
+            final ArrayList<Lists> todoLists = Logic.instance.getListsAsArray();
             final ListAdapter adapter = new ListAdapter(getActivity(), todoLists);
 
-            System.out.println(todoLists[1].getName());
+            System.out.println(todoLists.get(1).getName());
 
             lists.setAdapter(adapter);
 

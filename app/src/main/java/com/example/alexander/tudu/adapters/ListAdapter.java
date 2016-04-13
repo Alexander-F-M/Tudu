@@ -1,6 +1,8 @@
 package com.example.alexander.tudu.adapters;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.util.Log;
@@ -15,8 +17,11 @@ import android.widget.Toast;
 import com.example.alexander.tudu.FrontpageFragment;
 import com.example.alexander.tudu.MainActivity;
 import com.example.alexander.tudu.R;
+import com.example.alexander.tudu.TaskActivity;
 import com.example.alexander.tudu.VPFragment;
 import com.example.alexander.tudu.logic.Lists;
+
+import java.util.ArrayList;
 
 /**
  * Created by Alexander on 03-04-2016.
@@ -24,9 +29,9 @@ import com.example.alexander.tudu.logic.Lists;
 public class ListAdapter extends BaseAdapter{
 
     private Context context;
-    private Lists[] todoLists;
+    private ArrayList<Lists> todoLists;
 
-    public ListAdapter(Context ctx, Lists[] list) {
+    public ListAdapter(Context ctx, ArrayList<Lists> list) {
         context = ctx;
         todoLists = list;
     }
@@ -34,12 +39,12 @@ public class ListAdapter extends BaseAdapter{
 
     @Override
     public int getCount() {
-        return todoLists.length;
+        return todoLists.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return todoLists[position];
+        return todoLists.get(position);
     }
 
     @Override
@@ -62,6 +67,14 @@ public class ListAdapter extends BaseAdapter{
                 @Override
                 public void onClick(View v)
                 {
+                 Intent intent = new Intent(context, TaskActivity.class);
+                    if(intent != null) {
+                        System.out.println("Intent lavet");
+                        intent.putExtra("list", ((Parcelable) todoLists.get(position)));
+                        System.out.println("Put extra tilføjet");
+                        context.startActivity(intent);
+                    }
+                    /*
                     Fragment newFragment = new FrontpageFragment();
                    if (newFragment != null) {
                        Bundle bundle = new Bundle();
@@ -70,7 +83,8 @@ public class ListAdapter extends BaseAdapter{
                        switchFragment(newFragment);
                    }
 
-                    Toast.makeText(context, todoLists[position].getName(), Toast.LENGTH_LONG).show();
+                    */
+                    Toast.makeText(context, todoLists.get(position).getName(), Toast.LENGTH_LONG).show();
                     //Toast.makeText(context,"you clicked item: "+rowID, Toast.LENGTH_LONG.show();
                     //code you want to execute on click of list item...
                 }
@@ -82,7 +96,7 @@ public class ListAdapter extends BaseAdapter{
         }
 
         title = (TextView) list.findViewById(R.id.list_title);
-        title.setText(todoLists[position].getName());
+        title.setText(todoLists.get(position).getName());
 
         date = (TextView) list.findViewById(R.id.list_date);
 
@@ -91,6 +105,7 @@ public class ListAdapter extends BaseAdapter{
         return list;
     }
 
+    /*
     private void switchFragment(Fragment newFragment) {
         if (context == null) {
             return;
@@ -100,4 +115,5 @@ public class ListAdapter extends BaseAdapter{
             main.newFragment(newFragment);
         }
     }
+    */
 }

@@ -11,15 +11,17 @@ import android.widget.TextView;
 import com.example.alexander.tudu.R;
 import com.example.alexander.tudu.logic.Task;
 
+import java.util.ArrayList;
+
 /**
  * Created by Alexander on 11-04-2016.
  */
 public class TaskAdapter extends BaseAdapter {
 
     private Context context;
-    private Task[] taskList;
+    private ArrayList<Task> taskList;
 
-    public TaskAdapter(Context ctx, Task[] task) {
+    public TaskAdapter(Context ctx, ArrayList<Task> task) {
         context = ctx;
         taskList = task;
     }
@@ -27,12 +29,12 @@ public class TaskAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return taskList.length;
+        return taskList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return taskList[position];
+        return taskList.get(position);
     }
 
     @Override
@@ -56,10 +58,10 @@ public class TaskAdapter extends BaseAdapter {
         }
 
         taskTitle = (TextView) task.findViewById(R.id.task_title);
-        taskTitle.setText(taskList[position].getName());
+        taskTitle.setText(taskList.get(position).getName());
 
         checkbox = (CheckBox) task.findViewById(R.id.task_checkbox);
-        if(taskList[position].getDone()){
+        if(taskList.get(position).getDone()){
             checkbox.setChecked(true);
         }
 

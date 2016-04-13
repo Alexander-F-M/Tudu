@@ -1,11 +1,13 @@
 package com.example.alexander.tudu.logic;
 
+import java.util.ArrayList;
+
 /**
  * Created by Alexander on 31-03-2016.
  */
 public class User {
     private String name;
-    public Lists[] lists;
+    public ArrayList<Lists> lists;
 
     public User(String name) {
 

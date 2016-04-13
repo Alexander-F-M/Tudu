@@ -1,5 +1,7 @@
 package com.example.alexander.tudu.logic;
 
+import java.util.ArrayList;
+
 /**
  * Created by Alexander on 31-03-2016.
  */
@@ -13,31 +15,27 @@ public class Logic {
         users = new User[]{new User("Teddy Bridgewater"), new User("Trae Waynes")};
 
         teddy = users[0];
-        teddy.lists = new Lists[] {new Lists("Dagens To-Do"), new Lists("Træning")};
+        teddy.lists = new ArrayList<>();
+        teddy.lists.add(new Lists("Dagens To-Do"));
+        teddy.lists.add(new Lists("Træning"));
 
-        Lists dagensToDo = teddy.lists[0];
-        dagensToDo.tasks = new Task[] {
-                new Task("Ryd op"),
-                new Task("Gør rent"),
-                new Task("Køb mælk")
-        };
+        Lists dagensToDo = teddy.lists.get(0);
+        dagensToDo.tasks = new ArrayList<>();
+        dagensToDo.tasks.add(new Task("Ryd op"));
+        dagensToDo.tasks.add(new Task("Gør rent"));
+        dagensToDo.tasks.add(new Task("Køb mælk"));
 
-        dagensToDo.tasks[0].setDone(true);
+        dagensToDo.tasks.get(0).setDone(true);
 
-        Lists træning = teddy.lists[1];
-        træning.tasks = new Task[] {
-                new Task("Biceps"),
-                new Task("Triceps")
-        };
+        Lists træning = teddy.lists.get(1);
+        træning.tasks = new ArrayList<>();
+        træning.tasks.add(new Task("Biceps"));
+        træning.tasks.add(new Task("Triceps"));
     }
 
 
-    public Lists[] getListsAsArray() {
+    public ArrayList<Lists> getListsAsArray() {
         return teddy.lists;
     }
 
-    public Task[] getTasksAsArray() {
-        Lists[] list = getListsAsArray();
-        return list[0].tasks;
-    }
 }

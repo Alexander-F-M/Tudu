@@ -14,6 +14,8 @@ import com.example.alexander.tudu.adapters.TaskAdapter;
 import com.example.alexander.tudu.logic.Lists;
 import com.example.alexander.tudu.logic.Task;
 
+import java.util.ArrayList;
+
 /**
  * Created by Alexander on 22-03-2016.
  */
@@ -37,16 +39,23 @@ public class FrontpageFragment extends Fragment {
         tasks = (ListView) root.findViewById(R.id.tasks);
         listname = (TextView) root.findViewById(R.id.list_task_title);
 
+        /*
         Bundle bundle = this.getArguments();
         Lists list = (Lists) bundle.getParcelable("list");
+        */
 
-        final Task[] taskList = list.tasks;
+        System.out.println("prøver at hente data fra activity");
+        Lists list = ((TaskActivity) getActivity()).getList();
+        System.out.println(list.getName());
+
+
+        final ArrayList<Task> taskList = list.tasks;
         final TaskAdapter adapter = new TaskAdapter(getActivity(), taskList);
 
         tasks.setAdapter(adapter);
 
         listname.setText(list.getName());
-
+//
         return root;
 
     }
