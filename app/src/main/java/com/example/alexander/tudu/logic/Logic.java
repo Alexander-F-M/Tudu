@@ -8,11 +8,11 @@ import java.util.ArrayList;
 public class Logic {
     public static Logic instance;
     private User[] users;
-    User teddy;
+    private User teddy;
 
     public void TestData() {
 
-        users = new User[]{new User("Teddy Bridgewater"), new User("Trae Waynes")};
+        users = new User[]{new User("Teddy Bridgewater")};
 
         teddy = users[0];
         teddy.lists = new ArrayList<>();
@@ -36,6 +36,10 @@ public class Logic {
 
     public ArrayList<Lists> getListsAsArray() {
         return teddy.lists;
+    }
+
+    public User getUser() {
+        return teddy;
     }
 
 }

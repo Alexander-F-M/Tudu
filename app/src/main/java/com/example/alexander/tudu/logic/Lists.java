@@ -24,6 +24,10 @@ public class Lists implements Parcelable {
         //this.name = newName;
     }
 
+    public void addTask(Task task) {
+        tasks.add(task);
+    }
+
 
     protected Lists(Parcel in) {
         name = in.readString();

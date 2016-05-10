@@ -1,13 +1,17 @@
 package com.example.alexander.tudu;
 
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.alexander.tudu.adapters.ListAdapter;
 import com.example.alexander.tudu.adapters.TaskAdapter;
@@ -19,10 +23,12 @@ import java.util.ArrayList;
 /**
  * Created by Alexander on 22-03-2016.
  */
-public class FrontpageFragment extends Fragment {
+public class FrontpageFragment extends Fragment implements CreateTaskFragment.CreateTaskListener {
 
     ListView tasks;
     TextView listname;
+    Lists list;
+    TaskAdapter adapter;
 
     public FrontpageFragment(){
 
@@ -39,26 +45,65 @@ public class FrontpageFragment extends Fragment {
         tasks = (ListView) root.findViewById(R.id.tasks);
         listname = (TextView) root.findViewById(R.id.list_task_title);
 
+        //View footer = inflater.inflate(R.layout.footer_add, null, false);
+        Button footerButton = (Button) root.findViewById(R.id.addTask);
+
         /*
         Bundle bundle = this.getArguments();
         Lists list = (Lists) bundle.getParcelable("list");
         */
+        list = ((TaskActivity) getActivity()).getList();
 
-        System.out.println("prøver at hente data fra activity");
-        Lists list = ((TaskActivity) getActivity()).getList();
-        System.out.println(list.getName());
+        ArrayList<Task> taskList = list.tasks;
+        adapter = new TaskAdapter(getActivity(), taskList);
+
+       // tasks.addFooterView(footer);
+
+        footerButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                    showDialog();
+
+                /*
+                Task task = new Task("Nyt Punkt");
+                list.addTask(task);
+                adapter.notifyDataSetChanged();
+                Toast.makeText(getActivity(), "hej", Toast.LENGTH_LONG).show();
+                */
+            }
+        });
 
 
-        final ArrayList<Task> taskList = list.tasks;
-        final TaskAdapter adapter = new TaskAdapter(getActivity(), taskList);
+
 
         tasks.setAdapter(adapter);
 
         listname.setText(list.getName());
-//
+
         return root;
 
     }
+
+    public void showDialog(){
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        CreateTaskFragment fragment = CreateTaskFragment.newInstance();
+        fragment.setTargetFragment(this, 300);
+        fragment.show(fm, "Tilføj punkt");
+    }
+
+    public void onFinishEditDialog(String inputText) {
+        //Toast.makeText(getActivity(), "Hi, " + inputText, Toast.LENGTH_SHORT).show();
+        Task task = new Task(inputText);
+        list.addTask(task);
+        adapter.notifyDataSetChanged();
+
+    }
+
+    /*public void addItems(View v) {
+        taskList.add(new Task("GER"));
+    }
+    */
 
 
             //popBackStack();

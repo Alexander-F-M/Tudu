@@ -18,16 +18,28 @@
         android:textSize="30sp"
         android:id="@+id/list_task_title" />
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="8"
             android:layout_marginTop="40dp">
 
             <ListView
                 android:id="@+id/tasks"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="7"
                 tools:listitem="@layout/list_item_tasks"
                 />
-             </RelativeLayout>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:id="@+id/addTask"
+                android:textAllCaps="false"
+                android:text="Tilføj nyt punkt"/>
+
+             </LinearLayout>
 </RelativeLayout>
