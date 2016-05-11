@@ -20,6 +20,8 @@ import com.example.alexander.tudu.R;
 import com.example.alexander.tudu.TaskActivity;
 import com.example.alexander.tudu.VPFragment;
 import com.example.alexander.tudu.logic.Lists;
+import com.example.alexander.tudu.logic.Logic;
+import com.example.alexander.tudu.logic.User;
 
 import java.util.ArrayList;
 
@@ -30,10 +32,12 @@ public class ListAdapter extends BaseAdapter{
 
     private Context context;
     private ArrayList<Lists> todoLists;
+    private User user;
 
     public ListAdapter(Context ctx, ArrayList<Lists> list) {
         context = ctx;
         todoLists = list;
+        user = Logic.getLogic().getUser();
     }
 
 
@@ -69,9 +73,7 @@ public class ListAdapter extends BaseAdapter{
                 {
                  Intent intent = new Intent(context, TaskActivity.class);
                     if(intent != null) {
-                        System.out.println("Intent lavet");
-                        intent.putExtra("list", ((Parcelable) todoLists.get(position)));
-                        System.out.println("Put extra tilføjet");
+                        user.setLists(todoLists.get(position));
                         context.startActivity(intent);
                     }
                     /*

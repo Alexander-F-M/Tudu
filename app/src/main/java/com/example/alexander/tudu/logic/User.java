@@ -8,6 +8,15 @@ import java.util.ArrayList;
 public class User {
     private String name;
     public ArrayList<Lists> lists;
+    public Lists selected;
+    private static User ourInstance = new User();
+
+    public User(){
+    }
+
+    public static User getInstance(){
+        return ourInstance;
+    }
 
     public User(String name) {
 
@@ -15,11 +24,19 @@ public class User {
     }
 
     public void setName(String newName) {
-       // this.name = newName;
+       this.name = newName;
     }
 
     public String getName() {
         return name;
+    }
+
+    public void setLists(Lists list){
+        this.selected = list;
+    }
+
+    public Lists getLists(){
+        return selected;
     }
 
 

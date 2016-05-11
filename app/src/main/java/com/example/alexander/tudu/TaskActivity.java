@@ -10,7 +10,6 @@ import com.example.alexander.tudu.logic.Lists;
  */
 public class TaskActivity extends AppCompatActivity {
 
-    public Lists list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,17 +17,8 @@ public class TaskActivity extends AppCompatActivity {
         System.out.println("TaskActivity startet");
         setContentView(R.layout.taskactivity);
 
-        Bundle bundle = getIntent().getExtras();
-       list = (Lists) bundle.getParcelable("list");
-        System.out.println(list.getName());
-        System.out.println(list.tasks.get(0).getName());
-
         if (savedInstanceState == null) {
            getSupportFragmentManager().beginTransaction().add(R.id.taskactivity_content, new FrontpageFragment()).commit();
         }
-    }
-
-    public Lists getList() {
-        return list;
     }
 }

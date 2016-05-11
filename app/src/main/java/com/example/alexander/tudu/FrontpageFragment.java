@@ -16,7 +16,9 @@ import android.widget.Toast;
 import com.example.alexander.tudu.adapters.ListAdapter;
 import com.example.alexander.tudu.adapters.TaskAdapter;
 import com.example.alexander.tudu.logic.Lists;
+import com.example.alexander.tudu.logic.Logic;
 import com.example.alexander.tudu.logic.Task;
+import com.example.alexander.tudu.logic.User;
 
 import java.util.ArrayList;
 
@@ -29,9 +31,10 @@ public class FrontpageFragment extends Fragment implements CreateTaskFragment.Cr
     TextView listname;
     Lists list;
     TaskAdapter adapter;
+    private User user;
 
     public FrontpageFragment(){
-
+        user = Logic.getLogic().getUser();
     }
 
     @Nullable
@@ -48,11 +51,7 @@ public class FrontpageFragment extends Fragment implements CreateTaskFragment.Cr
         //View footer = inflater.inflate(R.layout.footer_add, null, false);
         Button footerButton = (Button) root.findViewById(R.id.addTask);
 
-        /*
-        Bundle bundle = this.getArguments();
-        Lists list = (Lists) bundle.getParcelable("list");
-        */
-        list = ((TaskActivity) getActivity()).getList();
+        list = user.getLists();
 
         ArrayList<Task> taskList = list.tasks;
         adapter = new TaskAdapter(getActivity(), taskList);
