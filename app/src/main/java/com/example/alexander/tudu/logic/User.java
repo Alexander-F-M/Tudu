@@ -39,6 +39,14 @@ public class User {
         return selected;
     }
 
+    public void addList(Lists newList) {
+        lists.add(newList);
+    }
+
+    public ArrayList<Lists> getListsAsArray() {
+        return lists;
+    }
+
 
 
 }

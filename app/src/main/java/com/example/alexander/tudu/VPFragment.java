@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 import com.example.alexander.tudu.adapters.ListAdapter;
 import com.example.alexander.tudu.logic.Lists;
 import com.example.alexander.tudu.logic.Logic;
+import com.example.alexander.tudu.logic.User;
 
 import java.util.ArrayList;
 
@@ -118,11 +120,16 @@ public class VPFragment extends Fragment {
         }
     }
 
-    public static class ListFragment extends Fragment {
+    public static class ListFragment extends Fragment implements CreateListFragment.CreateListListener {
 
         ListView lists;
+        Button addList;
+        private User user;
+        ListAdapter adapter;
+
 
         public ListFragment() {
+            user = Logic.getLogic().getUser();
         }
 
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -132,13 +139,21 @@ public class VPFragment extends Fragment {
             //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
 
            lists = (ListView) root.findViewById(R.id.lists);
+           addList = (Button) root.findViewById(R.id.addList);
 
-            final ArrayList<Lists> todoLists = Logic.instance.getListsAsArray();
-            final ListAdapter adapter = new ListAdapter(getActivity(), todoLists);
+            final ArrayList<Lists> todoLists = user.getListsAsArray();
+            adapter = new ListAdapter(getActivity(), todoLists);
 
             System.out.println(todoLists.get(1).getName());
 
             lists.setAdapter(adapter);
+
+            addList.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showDialog();
+                }
+            });
 
           /*  lists.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -155,6 +170,22 @@ public class VPFragment extends Fragment {
 
 
             return root;
+        }
+        public void showDialog(){
+            FragmentManager fm = getActivity().getSupportFragmentManager();
+            CreateListFragment fragment = CreateListFragment.newInstance();
+            fragment.setTargetFragment(this, 300);
+            fragment.show(fm, "Tilføj liste");
+        }
+
+        public void onFinishEditDialog(String inputText) {
+            //Toast.makeText(getActivity(), "Hi, " + inputText, Toast.LENGTH_SHORT).show();
+
+            Lists list = new Lists(inputText);
+            list.tasks = new ArrayList<>();
+            user.addList(list);
+            adapter.notifyDataSetChanged();
+
         }
 
         public static ListFragment newInstance(int sectionNumber) {

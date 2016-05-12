@@ -67,15 +67,20 @@ public class ListAdapter extends BaseAdapter{
         if (convertView == null) {
             list = inflater.inflate(R.layout.list_item_lists, null);
 
-            list.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v)
-                {
-                 Intent intent = new Intent(context, TaskActivity.class);
-                    if(intent != null) {
-                        user.setLists(todoLists.get(position));
-                        context.startActivity(intent);
-                    }
+
+        } else {
+            list = convertView;
+        }
+
+        list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(context, TaskActivity.class);
+                if(intent != null) {
+                    user.setLists(todoLists.get(position));
+                    context.startActivity(intent);
+                }
                     /*
                     Fragment newFragment = new FrontpageFragment();
                    if (newFragment != null) {
@@ -86,16 +91,11 @@ public class ListAdapter extends BaseAdapter{
                    }
 
                     */
-                    Toast.makeText(context, todoLists.get(position).getName(), Toast.LENGTH_LONG).show();
-                    //Toast.makeText(context,"you clicked item: "+rowID, Toast.LENGTH_LONG.show();
-                    //code you want to execute on click of list item...
-                }
-            });
-
-
-        } else {
-            list = convertView;
-        }
+                Toast.makeText(context, todoLists.get(position).getName(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(context,"you clicked item: "+rowID, Toast.LENGTH_LONG.show();
+                //code you want to execute on click of list item...
+            }
+        });
 
         title = (TextView) list.findViewById(R.id.list_title);
         title.setText(todoLists.get(position).getName());

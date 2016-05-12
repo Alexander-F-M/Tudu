@@ -38,8 +38,8 @@ public class Logic extends Application {
 
         Lists træning = teddy.lists.get(1);
         træning.tasks = new ArrayList<>();
-        træning.tasks.add(new Task("Biceps"));
-        træning.tasks.add(new Task("Triceps"));
+        //træning.tasks.add(new Task("Biceps"));
+        //træning.tasks.add(new Task("Triceps"));
     }
 
 

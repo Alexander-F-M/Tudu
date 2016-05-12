@@ -6,8 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import com.example.alexander.tudu.FrontpageFragment;
 import com.example.alexander.tudu.R;
 import com.example.alexander.tudu.logic.Task;
 
@@ -43,7 +45,7 @@ public class TaskAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         TextView taskTitle;
         CheckBox checkbox;
 
@@ -61,10 +63,32 @@ public class TaskAdapter extends BaseAdapter {
         taskTitle.setText(taskList.get(position).getName());
 
         checkbox = (CheckBox) task.findViewById(R.id.task_checkbox);
-        if(taskList.get(position).getDone()){
-            checkbox.setChecked(true);
-        }
+        checkbox.setChecked(taskList.get(position).getDone());
 
+        checkbox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean isChecked = taskList.get(position).getDone();
+                if(isChecked) {
+                    taskList.get(position).setDone(false);
+                } else if(!isChecked) {
+                    taskList.get(position).setDone(true);
+                }
+            }
+            });
+
+        /*
+        checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    taskList.get(position).setDone(true);
+                } else if(!isChecked) {
+                    taskList.get(position).setDone(false);
+                }
+                // update your model (or other business logic) based on isChecked
+            }
+        });
+        */
         return task;
     }
 }
