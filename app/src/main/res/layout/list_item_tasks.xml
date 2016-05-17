@@ -9,7 +9,7 @@
     <ImageButton
         android:layout_width="0px"
         android:layout_height="match_parent"
-        android:id="@+id/list_setting"
+        android:id="@+id/task_delete"
         android:src="@drawable/ic_menu_manage"
         android:background="@color/white"
         android:layout_weight="1"/>

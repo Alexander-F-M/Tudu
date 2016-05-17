@@ -43,6 +43,14 @@ public class User {
         lists.add(newList);
     }
 
+    public void deleteList(int position) {
+        lists.remove(position);
+    }
+
+    public void save(){
+
+    }
+
     public ArrayList<Lists> getListsAsArray() {
         return lists;
     }

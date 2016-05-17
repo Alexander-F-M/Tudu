@@ -5,8 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.alexander.tudu.FrontpageFragment;
@@ -22,10 +24,12 @@ public class TaskAdapter extends BaseAdapter {
 
     private Context context;
     private ArrayList<Task> taskList;
+    FrontpageFragment frontpage;
 
-    public TaskAdapter(Context ctx, ArrayList<Task> task) {
+    public TaskAdapter(Context ctx, ArrayList<Task> task, FrontpageFragment front) {
         context = ctx;
         taskList = task;
+        frontpage = front;
     }
 
 
@@ -46,8 +50,9 @@ public class TaskAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        TextView taskTitle;
+        final TextView taskTitle;
         CheckBox checkbox;
+        ImageButton task_delete;
 
         LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -62,6 +67,14 @@ public class TaskAdapter extends BaseAdapter {
         taskTitle = (TextView) task.findViewById(R.id.task_title);
         taskTitle.setText(taskList.get(position).getName());
 
+        task_delete = (ImageButton) task.findViewById(R.id.task_delete);
+        task_delete.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                frontpage.deleteDialog(taskList.get(position).getName(), position);
+            }
+        });
+
         checkbox = (CheckBox) task.findViewById(R.id.task_checkbox);
         checkbox.setChecked(taskList.get(position).getDone());
 
@@ -69,26 +82,14 @@ public class TaskAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 boolean isChecked = taskList.get(position).getDone();
-                if(isChecked) {
+                if (isChecked) {
                     taskList.get(position).setDone(false);
-                } else if(!isChecked) {
+                } else if (!isChecked) {
                     taskList.get(position).setDone(true);
                 }
-            }
-            });
-
-        /*
-        checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked) {
-                    taskList.get(position).setDone(true);
-                } else if(!isChecked) {
-                    taskList.get(position).setDone(false);
-                }
-                // update your model (or other business logic) based on isChecked
             }
         });
-        */
+
         return task;
     }
 }

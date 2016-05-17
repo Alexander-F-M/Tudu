@@ -28,6 +28,9 @@ public class Lists implements Parcelable {
         tasks.add(task);
     }
 
+    public void deleteTask(int position){
+        tasks.remove(position);
+    }
 
     protected Lists(Parcel in) {
         name = in.readString();

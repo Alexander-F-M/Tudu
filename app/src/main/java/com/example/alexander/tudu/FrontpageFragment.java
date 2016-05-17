@@ -25,7 +25,8 @@ import java.util.ArrayList;
 /**
  * Created by Alexander on 22-03-2016.
  */
-public class FrontpageFragment extends Fragment implements CreateTaskFragment.CreateTaskListener {
+public class FrontpageFragment extends Fragment implements CreateTaskFragment.CreateTaskListener,
+        DeleteTask.DeleteTaskListener{
 
     ListView tasks;
     TextView listname;
@@ -54,26 +55,16 @@ public class FrontpageFragment extends Fragment implements CreateTaskFragment.Cr
         list = user.getLists();
 
         ArrayList<Task> taskList = list.tasks;
-        adapter = new TaskAdapter(getActivity(), taskList);
+        adapter = new TaskAdapter(getActivity(), taskList, this);
 
        // tasks.addFooterView(footer);
 
         footerButton.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                     showDialog();
-
-                /*
-                Task task = new Task("Nyt Punkt");
-                list.addTask(task);
-                adapter.notifyDataSetChanged();
-                Toast.makeText(getActivity(), "hej", Toast.LENGTH_LONG).show();
-                */
             }
         });
-
-
 
 
         tasks.setAdapter(adapter);
@@ -91,6 +82,7 @@ public class FrontpageFragment extends Fragment implements CreateTaskFragment.Cr
         fragment.show(fm, "Tilføj punkt");
     }
 
+    @Override
     public void onFinishEditDialog(String inputText) {
         //Toast.makeText(getActivity(), "Hi, " + inputText, Toast.LENGTH_SHORT).show();
         Task task = new Task(inputText);
@@ -99,20 +91,18 @@ public class FrontpageFragment extends Fragment implements CreateTaskFragment.Cr
 
     }
 
-    /*public void addItems(View v) {
-        taskList.add(new Task("GER"));
+    public void deleteDialog(String name, int position){
+        FragmentManager fm =  getActivity().getSupportFragmentManager();
+        DeleteTask fragment = DeleteTask.newInstance(name, position);
+        fragment.setTargetFragment(this,300);
+        fragment.show(fm,"Slet punkt");
     }
-    */
 
 
-            //popBackStack();
-
-        /*
-        getFragmentManager().beginTransaction()
-                .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
-                .replace(R.id.mainactivity_content, new VPFragment())
-                .addToBackStack(null)
-                .commit();
-                */
-
+    @Override
+    public void onFinishDeleteDialog(String name, int position) {
+        list.deleteTask(position);
+        adapter.notifyDataSetChanged();
+        Toast.makeText(getActivity(), "Punktet '" + name + "' blev slettet", Toast.LENGTH_SHORT).show();
+    }
 }

@@ -120,7 +120,8 @@ public class VPFragment extends Fragment {
         }
     }
 
-    public static class ListFragment extends Fragment implements CreateListFragment.CreateListListener {
+    public static class ListFragment extends Fragment implements CreateListFragment.CreateListListener,
+            DeleteList.DeleteListListener{
 
         ListView lists;
         Button addList;
@@ -142,9 +143,7 @@ public class VPFragment extends Fragment {
            addList = (Button) root.findViewById(R.id.addList);
 
             final ArrayList<Lists> todoLists = user.getListsAsArray();
-            adapter = new ListAdapter(getActivity(), todoLists);
-
-            System.out.println(todoLists.get(1).getName());
+            adapter = new ListAdapter(getActivity(), todoLists, this);
 
             lists.setAdapter(adapter);
 
@@ -178,14 +177,28 @@ public class VPFragment extends Fragment {
             fragment.show(fm, "Tilføj liste");
         }
 
+        @Override
         public void onFinishEditDialog(String inputText) {
-            //Toast.makeText(getActivity(), "Hi, " + inputText, Toast.LENGTH_SHORT).show();
-
             Lists list = new Lists(inputText);
             list.tasks = new ArrayList<>();
             user.addList(list);
             adapter.notifyDataSetChanged();
 
+        }
+
+        public void deleteDialog(String name, int position){
+            FragmentManager fm =  getActivity().getSupportFragmentManager();
+            DeleteList fragment = DeleteList.newInstance(name, position);
+            fragment.setTargetFragment(this,300);
+            fragment.show(fm,"Slet punkt");
+        }
+
+
+        @Override
+        public void onFinishDeleteDialog(String name, int position) {
+            user.deleteList(position);
+            adapter.notifyDataSetChanged();
+            Toast.makeText(getActivity(), "Listen '" + name + "' blev slettet", Toast.LENGTH_SHORT).show();
         }
 
         public static ListFragment newInstance(int sectionNumber) {

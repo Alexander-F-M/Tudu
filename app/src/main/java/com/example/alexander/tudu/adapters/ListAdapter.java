@@ -33,10 +33,12 @@ public class ListAdapter extends BaseAdapter{
     private Context context;
     private ArrayList<Lists> todoLists;
     private User user;
+    private VPFragment.ListFragment frag;
 
-    public ListAdapter(Context ctx, ArrayList<Lists> list) {
+    public ListAdapter(Context ctx, ArrayList<Lists> list, VPFragment.ListFragment listf) {
         context = ctx;
         todoLists = list;
+        frag = listf;
         user = Logic.getLogic().getUser();
     }
 
@@ -59,6 +61,7 @@ public class ListAdapter extends BaseAdapter{
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         TextView title, date, task_nr;
+        ImageButton list_delete;
 
         LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -74,31 +77,25 @@ public class ListAdapter extends BaseAdapter{
 
         list.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 Intent intent = new Intent(context, TaskActivity.class);
                 if(intent != null) {
                     user.setLists(todoLists.get(position));
                     context.startActivity(intent);
                 }
-                    /*
-                    Fragment newFragment = new FrontpageFragment();
-                   if (newFragment != null) {
-                       Bundle bundle = new Bundle();
-                       bundle.putParcelable("list", todoLists[position]);
-                       newFragment.setArguments(bundle);
-                       switchFragment(newFragment);
-                   }
-
-                    */
-                Toast.makeText(context, todoLists.get(position).getName(), Toast.LENGTH_LONG).show();
-                //Toast.makeText(context,"you clicked item: "+rowID, Toast.LENGTH_LONG.show();
-                //code you want to execute on click of list item...
             }
         });
 
         title = (TextView) list.findViewById(R.id.list_title);
         title.setText(todoLists.get(position).getName());
+
+        list_delete = (ImageButton) list.findViewById(R.id.list_delete);
+        list_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                frag.deleteDialog(todoLists.get(position).getName(), position);
+            }
+        });
 
         date = (TextView) list.findViewById(R.id.list_date);
 
@@ -107,15 +104,5 @@ public class ListAdapter extends BaseAdapter{
         return list;
     }
 
-    /*
-    private void switchFragment(Fragment newFragment) {
-        if (context == null) {
-            return;
-        }
-        if (context instanceof MainActivity) {
-            MainActivity main = (MainActivity) context;
-            main.newFragment(newFragment);
-        }
-    }
-    */
+
 }
