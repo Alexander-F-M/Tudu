@@ -114,7 +114,7 @@ public class VPFragment extends Fragment {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.vp_frag2, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
+            TextView textView = (TextView) rootView.findViewById(R.id.section_label4);
             //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
             return rootView;
         }
@@ -130,12 +130,12 @@ public class VPFragment extends Fragment {
 
 
         public ListFragment() {
-            user = Logic.getLogic().getUser();
         }
 
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View root = inflater.inflate(R.layout.vp_frag, container, false);
+            user = Logic.getLogic().getUser();
            // TextView textView = (TextView) root.findViewById(R.id.section_label);
             //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
 
@@ -182,6 +182,7 @@ public class VPFragment extends Fragment {
             Lists list = new Lists(inputText);
             list.tasks = new ArrayList<>();
             user.addList(list);
+            user.save();
             adapter.notifyDataSetChanged();
 
         }
@@ -198,6 +199,7 @@ public class VPFragment extends Fragment {
         public void onFinishDeleteDialog(String name, int position) {
             user.deleteList(position);
             adapter.notifyDataSetChanged();
+            user.save();
             Toast.makeText(getActivity(), "Listen '" + name + "' blev slettet", Toast.LENGTH_SHORT).show();
         }
 

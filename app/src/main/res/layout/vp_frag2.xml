@@ -13,28 +13,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="nu er vi her"/>
-
-    <TextView
-        android:id="@+id/section_label5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="nu er vi her"
-        android:layout_below="@+id/section_label3"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="74dp" />
-
-    <TextView
-        android:id="@+id/section_label6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="nu er vi her"
-        android:layout_below="@+id/section_label"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="58dp" />
+        android:text="Under udvikling"/>
 
 </RelativeLayout>

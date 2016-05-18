@@ -11,6 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
 
 import com.example.alexander.tudu.logic.Logic;
 
@@ -20,9 +22,9 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        Logic.instance = new Logic();
-        Logic.instance.TestData();
+        Fabric.with(this, new Crashlytics());
+        //Logic.getLogic() = new Logic();
+        //Logic.instance.TestData();
 
 
         setContentView(R.layout.mainactivity);

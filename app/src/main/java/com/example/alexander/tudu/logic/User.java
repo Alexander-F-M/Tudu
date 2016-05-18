@@ -11,16 +11,11 @@ public class User {
     public Lists selected;
     private static User ourInstance = new User();
 
-    public User(){
+    private User(){
     }
 
     public static User getInstance(){
         return ourInstance;
-    }
-
-    public User(String name) {
-
-        this.name = name;
     }
 
     public void setName(String newName) {
@@ -48,7 +43,8 @@ public class User {
     }
 
     public void save(){
-
+        Storage storage = Logic.getLogic().getStorage();
+        storage.saveUser(this);
     }
 
     public ArrayList<Lists> getListsAsArray() {

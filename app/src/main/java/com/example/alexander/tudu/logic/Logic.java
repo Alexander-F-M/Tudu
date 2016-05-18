@@ -8,21 +8,25 @@ import java.util.ArrayList;
  * Created by Alexander on 31-03-2016.
  */
 public class Logic extends Application {
-    public static Logic instance;
+    private static Logic instance;
     private User[] users;
     private User teddy;
     private Lists selected;
+    private Storage storage;
 
-    public Logic(){
+    @Override
+    public void onCreate(){
+        super.onCreate();
+        instance = this;
         teddy = User.getInstance();
+        teddy.lists = new ArrayList<>();
+        storage = Storage.getInstance().init(this);
+        teddy = storage.loadUser();
     }
 
     public void TestData() {
 
-        users = new User[]{new User("Teddy Bridgewater")};
-
         teddy.setName("Teddy Bridgewater");
-        teddy.lists = new ArrayList<>();
         teddy.lists.add(new Lists("Dagens To-Do"));
         teddy.lists.add(new Lists("Træning"));
 
@@ -42,7 +46,6 @@ public class Logic extends Application {
         //træning.tasks.add(new Task("Triceps"));
     }
 
-
     public ArrayList<Lists> getListsAsArray() {
         return teddy.lists;
     }
@@ -53,6 +56,10 @@ public class Logic extends Application {
 
     public static Logic getLogic(){
         return instance;
+    }
+
+    public Storage getStorage() {
+        return storage;
     }
 
 }

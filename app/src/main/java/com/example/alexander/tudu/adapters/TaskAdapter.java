@@ -13,7 +13,9 @@ import android.widget.TextView;
 
 import com.example.alexander.tudu.FrontpageFragment;
 import com.example.alexander.tudu.R;
+import com.example.alexander.tudu.logic.Logic;
 import com.example.alexander.tudu.logic.Task;
+import com.example.alexander.tudu.logic.User;
 
 import java.util.ArrayList;
 
@@ -25,11 +27,13 @@ public class TaskAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<Task> taskList;
     FrontpageFragment frontpage;
+    User user;
 
     public TaskAdapter(Context ctx, ArrayList<Task> task, FrontpageFragment front) {
         context = ctx;
         taskList = task;
         frontpage = front;
+        user = Logic.getLogic().getUser();
     }
 
 
@@ -87,6 +91,7 @@ public class TaskAdapter extends BaseAdapter {
                 } else if (!isChecked) {
                     taskList.get(position).setDone(true);
                 }
+                user.save();
             }
         });
 

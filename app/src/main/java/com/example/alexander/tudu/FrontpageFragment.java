@@ -87,6 +87,7 @@ public class FrontpageFragment extends Fragment implements CreateTaskFragment.Cr
         //Toast.makeText(getActivity(), "Hi, " + inputText, Toast.LENGTH_SHORT).show();
         Task task = new Task(inputText);
         list.addTask(task);
+        user.save();
         adapter.notifyDataSetChanged();
 
     }
@@ -103,6 +104,7 @@ public class FrontpageFragment extends Fragment implements CreateTaskFragment.Cr
     public void onFinishDeleteDialog(String name, int position) {
         list.deleteTask(position);
         adapter.notifyDataSetChanged();
+        user.save();
         Toast.makeText(getActivity(), "Punktet '" + name + "' blev slettet", Toast.LENGTH_SHORT).show();
     }
 }
