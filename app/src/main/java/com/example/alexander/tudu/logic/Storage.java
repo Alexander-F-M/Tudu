@@ -6,6 +6,8 @@ import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
+
 /**
  * Created by Alexander on 18-05-2016.
  */
@@ -35,6 +37,10 @@ public class Storage {
         Gson gson = new Gson();
         String json = pref.getString("User", "");
         user = gson.fromJson(json, User.class);
+        if(user == null) {
+            user = User.getInstance();
+            user.lists = new ArrayList<>();
+        }
         return user;
     }
 

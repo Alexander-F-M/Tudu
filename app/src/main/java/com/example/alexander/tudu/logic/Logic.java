@@ -18,8 +18,6 @@ public class Logic extends Application {
     public void onCreate(){
         super.onCreate();
         instance = this;
-        teddy = User.getInstance();
-        teddy.lists = new ArrayList<>();
         storage = Storage.getInstance().init(this);
         teddy = storage.loadUser();
     }
