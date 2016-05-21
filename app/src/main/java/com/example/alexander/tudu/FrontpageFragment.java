@@ -47,7 +47,7 @@ public class FrontpageFragment extends Fragment implements CreateTaskFragment.Cr
         //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
 
         tasks = (ListView) root.findViewById(R.id.tasks);
-        listname = (TextView) root.findViewById(R.id.list_task_title);
+        //listname = (TextView) root.findViewById(R.id.list_task_title);
 
         //View footer = inflater.inflate(R.layout.footer_add, null, false);
         Button footerButton = (Button) root.findViewById(R.id.addTask);
@@ -69,7 +69,7 @@ public class FrontpageFragment extends Fragment implements CreateTaskFragment.Cr
 
         tasks.setAdapter(adapter);
 
-        listname.setText(list.getName());
+        //listname.setText(list.getName());
 
         return root;
 

@@ -5,6 +5,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +50,30 @@ public class CreateTaskFragment extends DialogFragment implements View.OnClickLi
             imgr.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
             //getFragmentManager().get .getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
+
+        editAddTask.addTextChangedListener(new TextWatcher() {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+            public void afterTextChanged(Editable s) {
+                /*
+                 * The loop is in reverse for a purpose,
+                 * each replace or delete call on the Editable will cause
+                 * the afterTextChanged method to be called again.
+                 * Hence the return statement after the first removal.
+                 * http://developer.android.com/reference/android/text/TextWatcher.html#afterTextChanged(android.text.Editable)
+                 */
+                        for(int i = s.length()-1; i > 0; i--){
+                            if(s.charAt(i) == '\n'){
+                                s.delete(i, i + 1);
+                                return;
+                            }
+                        }
+                    }
+        });
 
         getActivity().getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN

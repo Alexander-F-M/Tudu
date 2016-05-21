@@ -11,19 +11,14 @@
     tools:context="com.example.alexander.tudu.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Dagens To-Do"
-        android:textSize="30sp"
-        android:id="@+id/list_task_title" />
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:weightSum="8"
-            android:layout_marginTop="40dp">
+            android:layout_marginTop="10dp">
 
             <ListView
                 android:id="@+id/tasks"

@@ -121,7 +121,7 @@ public class VPFragment extends Fragment {
     }
 
     public static class ListFragment extends Fragment implements CreateListFragment.CreateListListener,
-            DeleteList.DeleteListListener{
+            DeleteList.DeleteListListener, EditList.EditListListener{
 
         ListView lists;
         Button addList;
@@ -190,17 +190,32 @@ public class VPFragment extends Fragment {
         public void deleteDialog(String name, int position){
             FragmentManager fm =  getActivity().getSupportFragmentManager();
             DeleteList fragment = DeleteList.newInstance(name, position);
-            fragment.setTargetFragment(this,300);
-            fragment.show(fm,"Slet punkt");
+            fragment.setTargetFragment(this, 300);
+            fragment.show(fm, "Slet liste");
         }
 
 
         @Override
         public void onFinishDeleteDialog(String name, int position) {
             user.deleteList(position);
-            adapter.notifyDataSetChanged();
             user.save();
+            adapter.notifyDataSetChanged();
             Toast.makeText(getActivity(), "Listen '" + name + "' blev slettet", Toast.LENGTH_SHORT).show();
+        }
+
+        public void editDialog(String name, int position){
+            FragmentManager fm = getActivity().getSupportFragmentManager();
+            EditList fragment = EditList.newInstance(name, position);
+            fragment.setTargetFragment(this, 300);
+            fragment.show(fm, "Redigér liste");
+        }
+
+        @Override
+        public void onFinishedEditListDialog(String name, int position){
+            user.lists.get(position).setName(name);
+            user.save();
+            adapter.notifyDataSetChanged();
+            Toast.makeText(getActivity(), "Listen blev rettet succesfuldt", Toast.LENGTH_SHORT).show();
         }
 
         public static ListFragment newInstance(int sectionNumber) {

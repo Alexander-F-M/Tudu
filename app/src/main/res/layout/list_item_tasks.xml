@@ -4,11 +4,13 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:minHeight="50dp"
+    android:background="@color/white"
     android:weightSum="4">
 
     <ImageButton
         android:layout_width="0px"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:id="@+id/task_delete"
         android:src="@drawable/ic_delete_black_48dp"
         android:background="@color/white"

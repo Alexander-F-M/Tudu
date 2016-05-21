@@ -14,48 +14,56 @@ import android.widget.Button;
 import android.widget.EditText;
 
 /**
- * Created by Alexander on 12-05-2016.
+ * Created by Alexander on 21-05-2016.
  */
-public class CreateListFragment extends DialogFragment implements View.OnClickListener {
+public class EditList extends DialogFragment implements View.OnClickListener{
 
     Button dismiss_list, accept_list;
-    EditText editAddList;
-    View view;
+    EditText editList;
+    private static String listName;
+    private static int pos;
 
-    public interface CreateListListener {
-        void onFinishEditDialog(String inputText);
+    public interface EditListListener{
+        void onFinishedEditListDialog(String name, int position);
     }
 
-    public static CreateListFragment newInstance(){
-        CreateListFragment fragment = new CreateListFragment();
+    public static EditList newInstance(String newName, int position){
+        EditList fragment = new EditList();
+        listName = newName;
+        pos = position;
         fragment.setStyle(DialogFragment.STYLE_NORMAL,R.style.CustomDialog);
         return fragment;
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.create_task_fragment, container);
-        getDialog().setTitle("Tilføj Liste");
+        getDialog().setTitle("Redigér Liste");
 
-        editAddList = (EditText) root.findViewById(R.id.editAddTask);
-        dismiss_list = (Button) root.findViewById(R.id.dismiss_task);
+        editList = (EditText) root.findViewById(R.id.editAddTask);
+        dismiss_list = (Button)  root.findViewById(R.id.dismiss_task);
         accept_list = (Button) root.findViewById(R.id.accept_task);
 
-        accept_list.setOnClickListener(this);
         dismiss_list.setOnClickListener(this);
+        accept_list.setOnClickListener(this);
 
-        if(editAddList.requestFocus()) {
+        accept_list.setText("REDIGÉR");
+        editList.setText(listName);
+
+        if(editList.requestFocus()) {
             InputMethodManager imgr = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imgr.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
             //getFragmentManager().get .getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
 
-        editAddList.addTextChangedListener(new TextWatcher() {
+        editList.addTextChangedListener(new TextWatcher() {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
             }
+
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
+
             public void afterTextChanged(Editable s) {
                 /*
                  * The loop is in reverse for a purpose,
@@ -64,8 +72,8 @@ public class CreateListFragment extends DialogFragment implements View.OnClickLi
                  * Hence the return statement after the first removal.
                  * http://developer.android.com/reference/android/text/TextWatcher.html#afterTextChanged(android.text.Editable)
                  */
-                for(int i = s.length()-1; i > 0; i--){
-                    if(s.charAt(i) == '\n'){
+                for (int i = s.length() - 1; i > 0; i--) {
+                    if (s.charAt(i) == '\n') {
                         s.delete(i, i + 1);
                         return;
                     }
@@ -80,6 +88,7 @@ public class CreateListFragment extends DialogFragment implements View.OnClickLi
         return root;
     }
 
+
     @Override
     public void onClick(View v) {
         if(v == accept_list) {
@@ -91,8 +100,8 @@ public class CreateListFragment extends DialogFragment implements View.OnClickLi
     }
 
     public void sendBackResult(){
-        CreateListListener listener = (CreateListListener) getTargetFragment();
-        listener.onFinishEditDialog(editAddList.getText().toString());
+        EditListListener listener = (EditListListener) getTargetFragment();
+        listener.onFinishedEditListDialog(editList.getText().toString(), pos);
         dismiss();
     }
 }

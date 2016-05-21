@@ -60,8 +60,8 @@ public class ListAdapter extends BaseAdapter{
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        TextView title, date, task_nr;
-        ImageButton list_delete;
+        TextView title, task_nr;
+        ImageButton list_delete, list_edit;
 
         LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -97,9 +97,28 @@ public class ListAdapter extends BaseAdapter{
             }
         });
 
-        date = (TextView) list.findViewById(R.id.list_date);
+        list_edit = (ImageButton) list.findViewById(R.id.list_edit);
+        list_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                frag.editDialog(todoLists.get(position).getName(), position);
+            }
+        });
 
         task_nr = (TextView) list.findViewById(R.id.list_task_nr);
+        int i = 0;
+
+        for(int s = 0; s < todoLists.get(position).tasks.size(); s++){
+            if(!todoLists.get(position).tasks.get(s).getDone()) {
+                i++;
+            }
+        }
+
+        if(i == 1) {
+            task_nr.setText("1 uløst punkt");
+        } else {
+            task_nr.setText(i + " uløste punkter");
+        }
 
         return list;
     }

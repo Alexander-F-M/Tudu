@@ -21,7 +21,7 @@ public class Lists implements Parcelable {
     }
 
     public void setName(String newName) {
-        //this.name = newName;
+        this.name = newName;
     }
 
     public void addTask(Task task) {
