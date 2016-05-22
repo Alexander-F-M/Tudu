@@ -37,7 +37,7 @@ public class EditList extends DialogFragment implements View.OnClickListener{
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.create_task_fragment, container);
-        getDialog().setTitle("Redigér Liste");
+        getDialog().setTitle("Redigér listenavn");
 
         editList = (EditText) root.findViewById(R.id.editAddTask);
         dismiss_list = (Button)  root.findViewById(R.id.dismiss_task);
@@ -46,7 +46,7 @@ public class EditList extends DialogFragment implements View.OnClickListener{
         dismiss_list.setOnClickListener(this);
         accept_list.setOnClickListener(this);
 
-        accept_list.setText("REDIGÉR");
+        accept_list.setText("BEKRÆFT");
         editList.setText(listName);
 
         if(editList.requestFocus()) {
